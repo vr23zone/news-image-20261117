@@ -11,7 +11,10 @@
 // sequenced from whale snot, a Durban lifeguard rescuing a dog from the
 // surf, a Wolves fan stripping to jinx a record penalty that scored
 // anyway, and three strangers kicking in a burning Iowa door to save the
-// resident — plus a ticker of five more (Fiona the hat-eating hippo,
+// resident — plus eighteen more stories in a three-column IN BRIEF
+// section (a Prague train crash, Putin's red-carpet landing, the
+// Simpsons blackout hoax, runaway goats, Voyager 1 and more) and a
+// ticker of five more (Fiona the hat-eating hippo,
 // "man flu" science, a vigilant elephant, dogs' gut bugs, Roy Keane).
 //
 // This program's whole job is to put that image where the grader looks:
