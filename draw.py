@@ -2,13 +2,17 @@
 """Draw entry.png: the world news of Tuesday 17 November 2026 on one page.
 
 V3 — a bright, full-colour infographic front page. A navy masthead band
-carries the date and the strap "35 STORIES · 6 CONTINENTS · ALL FROM
+carries the date and the strap "37 STORIES · 8 CONTINENTS · ALL FROM
 TUESDAY". Twelve numbered panels pair AI illustrations (assets/v3panel*.png,
 generated with no text in them) with PIL-typeset headlines and captions.
 A "WHERE IT HAPPENED" world map (coastlines in assets/world.json, drawn
 here) plots numbered dots, colour-coded by category, for every story with
-a clear location. Twenty-three more stories run as numbered one-liners in
-an ALSO ON TUESDAY section. Every panel and brief carries one emoji that
+a clear location. Twenty-five more stories run as numbered one-liners in
+an ALSO ON TUESDAY section. A text-free vintage nautical vignette
+(assets/nautical.png) — a large wooden ship's helm wheel over a brass
+compass rose, with a small tall ship in the corner — fills the space
+beside the map legend. Every panel and brief
+carries one emoji that
 matches its story, typeset from Noto Color Emoji. All wording is set by
 this script, so the text is exact and crisp.
 
@@ -30,25 +34,29 @@ Panels:
  5. A Wolves fan strips to his pants behind the goal to jinx Justin
     Kluivert's record third penalty; Kluivert scores anyway — the first
     hat-trick of penalties in Premier League history (The Sun).
- 6. Three passersby kick in the door of a burning home in George, Iowa,
-    at 2:45 a.m. and pull the last resident out alive (Sioux County
-    Radio, reported 17 Nov 2026).
+ 6. Surf lifesaver Charlie Verco, who in June paddled to a shark-attack
+    victim at Sydney's Coogee Beach and kept her alive, wins his first
+    Shaw and Partners Iron Series race, at Thirroul Beach (AAP wire;
+    Sports Rewind Media feature, 17 Nov 2026).
  7. Two passenger trains collide head-on on a bridge beside Prague's
     main station; 46 injured, four seriously, none killed (The Guardian).
- 8. Vladimir Putin lands in Shenzhen around 2 a.m. ahead of APEC to a
-    red carpet, dancers and an honour guard (BBC / Anadolu).
+ 8. Bitcoin stalls below $65,000 after a 12% weekly crash pushes it
+    through its 200-week average, a break seen just three times since
+    2013; Wintermute warns of a slide into the $50,000s (CoinDesk,
+    17 Nov 2026).
  9. The blackout that wasn't: viral posts claim The Simpsons predicted a
     global blackout for today; fact-checkers rate it false — the day's
     real event is a one-minute FEMA alert test (Times Now / PolitiFact).
-10. Streamer IShowSpeed, on a livestream call, greets surprise guest
-    Barack Obama in Indonesian ("Apa kabar?"); Obama praises his accent.
-    Reported across outlets on 17 Nov (HipHopWired / Nairobi News).
+10. Streamer IShowSpeed, on a livestream video call, greets Barack
+    Obama in Indonesian ("Apa kabar, Mr President?"); Obama praises
+    his accent. Reported across outlets on 17 Nov (HipHopWired /
+    Nairobi News).
 11. Ukraine strikes the Kerch Bridge to Crimea for a second day; a road
     span falls into the strait (BBC via Level Headlines daily brief).
 12. A homeless woman in Compton, California, refuses to leave eight
     puppies living in a riverbed hole ahead of rainstorms (Parade).
 
-Also on Tuesday (13–35):
+Also on Tuesday (13–37):
 13. Iran says two tankers hit naval mines in Hormuz (Reuters / Al Jazeera).
 14. A ULA Vulcan rocket fails, destroying 40 Amazon Leo satellites
     (Spaceflight Now).
@@ -94,10 +102,18 @@ Also on Tuesday (13–35):
 35. LPG tanker Gas Husky sinks off Bulgaria; an air force helicopter
     lifts all 19 Filipino crew from a life raft (Reuters / BTA,
     17 Nov 2026).
+36. Trackers follow 48 young emperor penguins from Weddell Sea
+    colonies into industrial krill-fishing zones during their first
+    year at sea (WHOI / Biological Conservation, 17 Nov 2026).
+37. The Barnacle — a yellow suction clamp that blinds bad parkers
+    until they pay up — rolls out in Christchurch, Queenstown and
+    Wellington (Stuff, 17 Nov 2026; NZ Herald via CarExpert NZ).
 
-Continent check: Asia 9 · Europe 6 · North America 11 · Africa 3 ·
-South America 1 (31) · Oceania 1 (32) · space & sky 4 — six continents,
-as the strap says.
+Continent check: Asia 8 · Europe 6 · North America 10 · Africa 3 ·
+South America 1 (31) · Oceania 2 (6, 32) · Antarctica 1 (36) ·
+Zealandia 1 (37 — New Zealand, on the mostly submerged eighth
+continent) · space & sky 4 · global 1 (8, the Bitcoin crash — a
+worldwide market, so no dot) — eight continents, as the strap says.
 
 Deterministic: committed assets only, no randomness, no timestamps.
 Running this script rewrites entry.png beside it, byte for byte.
@@ -133,6 +149,7 @@ CATS = {
     "SPORT":  ((230, 126, 34), "Sport"),
     "HERO":   ((183, 121, 12), "Heroes"),
     "SCI":    ((131, 62, 166), "Science"),
+    "ODD":    ((170, 105, 55), "Odd & offbeat"),
 }
 
 NOTO = "/usr/share/fonts/truetype/noto"
@@ -235,9 +252,9 @@ date_s = "TUESDAY 17 NOVEMBER 2026"
 while tw(d, date_s, date_f) > W - 2 * M - 30:
     date_f = font(SANS_XB, date_f.size - 1)
 center(d, date_s, date_f, 52, (255, 255, 255))
-draw_spaced("35 STORIES · 6 CONTINENTS · ALL FROM TUESDAY",
+draw_spaced("37 STORIES · 8 CONTINENTS · ALL FROM TUESDAY",
             font(SANS_CB, 15), W / 2, 97, GOLD, 3)
-center(d, "Thirty-five stories that defined the day — the funny, the strange, the brave",
+center(d, "Thirty-seven stories that defined the day — the funny, the strange, the brave",
        font(SANS_R, 14), 126, GRAY)
 d.rectangle([M, 144, W - M, 146], fill=BORDER)
 
@@ -264,26 +281,26 @@ PANELS = [
      "BARED ALL. SCORED ANYWAY.",
      "A Wolves fan stripped to jinx a record third penalty. "
      "Kluivert scored anyway.", 0.5),
-    (6, "HEROES · AMERICAS", "HERO", "v3panel6.png", "🔥",
-     "THREE STRANGERS KICKED IN THE DOOR",
-     "At 2:45 a.m., three drivers kicked in a burning Iowa door and "
-     "saved the resident.", 0.6),
+    (6, "HEROES · OCEANIA", "HERO", "v3panel6.png", "🦈",
+     "SHARK-ATTACK HERO WINS HIS FIRST TITLE",
+     "Five months after the Coogee shark rescue, Verco wins "
+     "at Thirroul.", 0.5),
     (7, "CRASH · EUROPE", "WAR", "v3panel7.png", "🚆",
      "TRAINS MEET HEAD-ON IN PRAGUE",
      "Two trains collide on a Prague bridge: 46 injured, four "
      "seriously, none killed.", 0.5),
-    (8, "DIPLOMACY · ASIA", "POL", "v3panel8.png", "✈️",
-     "PUTIN'S RED-CARPET LANDING",
-     "Putin lands in Shenzhen at 2 a.m. for APEC — dancers, flags "
-     "and a red carpet.", 0.5),
+    (8, "CRYPTO · GLOBAL", "TECH", "v3panel8.png", "🪙",
+     "BITCOIN BREAKS ITS LIFELINE",
+     "A 12% weekly crash knocks Bitcoin under $65,000, through "
+     "its 200-week average.", 0.45),
     (9, "HOAX · AMERICAS", "TECH", "v3panel9.png", "📵",
      "THE BLACKOUT THAT WASN'T",
      "Viral posts said The Simpsons predicted a global blackout. "
      "Fact-checkers: false.", 0.5),
     (10, "VIRAL · ASIA", "POL", "v3panel10.png", "🎤",
      "\u2018APA KABAR, MR PRESIDENT?\u2019",
-     "IShowSpeed greets guest Barack Obama in Indonesian — and "
-     "Obama praises the accent.", 0.4),
+     "On his livestream, Speed greets Obama in Indonesian: "
+     "\u2018Apa kabar, Mr President?\u2019", 0.5),
     (11, "WAR · EUROPE", "WAR", "v3panel11.png", "🌉",
      "SPAN DOWN IN THE STRAIT",
      "Ukraine hits the Kerch Bridge to Crimea again; a road span "
@@ -373,8 +390,8 @@ for poly in world["polygons"]:
 # story dots: num -> (lon, lat, cat)
 DOTS = {
     1: (121.0, 14.6, "POL"), 3: (-1.5, 57.0, "SCI"), 4: (31.0, -29.9, "HERO"),
-    5: (-1.8, 51.0, "SPORT"), 6: (-94.5, 42.5, "HERO"), 7: (14.4, 50.1, "WAR"),
-    8: (114.1, 22.5, "POL"), 10: (106.8, -6.2, "POL"), 11: (38.5, 45.8, "WAR"),
+    5: (-1.8, 51.0, "SPORT"), 6: (158.5, -40.0, "HERO"), 7: (14.4, 50.1, "WAR"),
+    10: (106.8, -6.2, "POL"), 11: (38.5, 45.8, "WAR"),
     12: (-118.2, 33.9, "HERO"), 13: (56.3, 26.6, "WAR"),
     14: (-79.5, 27.8, "TECH"), 15: (-71.5, 41.7, "HERO"),
     16: (105.0, 48.0, "POL"), 17: (117.5, 39.5, "TECH"),
@@ -383,6 +400,7 @@ DOTS = {
     31: (-45.3, -4.9, "HEALTH"), 32: (151.2, -33.9, "SPORT"),
     33: (36.5, 36.2, "HEALTH"), 34: (-90.1, 30.0, "HERO"),
     35: (25.5, 43.8, "HERO"),
+    36: (-45.0, -48.5, "SCI"), 37: (172.5, -41.5, "ODD"),
 }
 for num in sorted(DOTS):
     lon, lat, cat = DOTS[num]
@@ -405,22 +423,36 @@ for a, b in LEG:
         x = LX + j * 250
         d.ellipse([x, ly + 2, x + 10, ly + 12], fill=CATS[key][0])
         d.text((x + 15, ly), CATS[key][1], font=font(SANS_R, 12), fill=INK)
-    ly += 19
-ly += 8
-d.text((LX, ly), "ASIA 9 · EUROPE 6 · NORTH AMERICA 11",
+    ly += 18
+ly += 6
+d.text((LX, ly), "ASIA 8 · EUROPE 6 · NORTH AMERICA 10",
        font=font(SANS_B, 13), fill=NAVY)
-d.text((LX, ly + 18), "AFRICA 3 · SOUTH AMERICA 1 · OCEANIA 1 · SPACE & SKY 4",
+d.text((LX, ly + 17), "AFRICA 3 · SOUTH AMERICA 1 · OCEANIA 2",
        font=font(SANS_B, 13), fill=NAVY)
-d.text((LX, ly + 44), "Dots mark where each numbered story happened;",
+d.text((LX, ly + 34), "ANTARCTICA 1 · ZEALANDIA 1 · SPACE & SKY 4 · GLOBAL 1",
+       font=font(SANS_B, 13), fill=NAVY)
+d.text((LX, ly + 55), "Zealandia — the hidden eighth continent, mostly under the sea",
        font=font(SANS_R, 11.5), fill=GRAY)
-d.text((LX, ly + 58), "space stories (22–24, 30) have no dot — they are overhead.",
+d.text((LX, ly + 69), "Dots mark where each numbered story happened;",
        font=font(SANS_R, 11.5), fill=GRAY)
+d.text((LX, ly + 83), "story 8 is a global market; space stories (22–24, 30) are overhead.",
+       font=font(SANS_R, 11.5), fill=GRAY)
+
+# decorative vintage nautical vignette in the whitespace right of the
+# legend: a large wooden ship's helm wheel (the hero) over a brass compass
+# rose, with a small tall ship in the corner (text-free art)
+_nautical = Image.open(os.path.join(HERE, "assets", "nautical.png")).convert("RGBA")
+_scale = min(134 / _nautical.width, 174 / _nautical.height)
+_nautical = _nautical.resize((round(_nautical.width * _scale),
+                              round(_nautical.height * _scale)), Image.LANCZOS)
+img.paste(_nautical, (935 - _nautical.width // 2, 720 - _nautical.height // 2),
+          _nautical)
 
 # ---------------- also on Tuesday ----------------
 AY = MAP_Y + MAP_H + 14
 d.text((M, AY), "ALSO ON TUESDAY", font=font(SANS_XB, 14), fill=NAVY)
 ax = M + tw(d, "ALSO ON TUESDAY", font(SANS_XB, 14))
-d.text((ax + 6, AY), "— 23 MORE FROM THE DAY", font=font(SANS_B, 12), fill=RED)
+d.text((ax + 6, AY), "— 25 MORE FROM THE DAY", font=font(SANS_B, 12), fill=RED)
 d.rectangle([M, AY + 20, W - M, AY + 22], fill=BORDER)
 
 BRIEFS = [
@@ -428,8 +460,8 @@ BRIEFS = [
     (14, "TECH", "🛰️", "40 SATELLITES LOST", "a Vulcan rocket fails"),
     (15, "HERO", "🐐", "GOATS ON THE LAM", "one lassoed, one still free"),
     (16, "POL", "🏛️", "A PRESIDENT QUITS", "Mongolia's leader resigns"),
-    (17, "TECH", "🤝", "CANADA–CHINA THAW", "tariffs trimmed pre-APEC"),
-    (18, "HEALTH", "🌧️", "FIRST IN CLIMATE QUEUE", "Nepal tops UN fund list"),
+    (17, "TECH", "🤝", "CANADA–CHINA THAW", "tariffs cut pre-APEC"),
+    (18, "HEALTH", "🌧️", "FIRST IN CLIMATE QUEUE", "Nepal tops UN list"),
     (19, "HEALTH", "🦠", "EBOLA PASSES 11,000", "DR Congo toll climbs"),
     (20, "POL", "🧳", "EU EYES RWANDA HUB", "five states push a deal"),
     (21, "HEALTH", "❄️", "GAZA FACES WINTER", "1.7m displaced, aid short"),
@@ -439,14 +471,16 @@ BRIEFS = [
     (25, "HEALTH", "🦛", "FIONA ATE A KNIT HAT", "zoo star off exhibit"),
     (26, "SCI", "🤧", "\u2018MAN FLU\u2019 IS REAL-ISH", "a Zika study backs it"),
     (27, "HEALTH", "🐘", "ELEPHANT KEEPS VIGIL", "over a sick friend"),
-    (28, "SCI", "🐾", "DOGS\u2019 GUT BUGS", "copy their owners\u2019 lives"),
+    (28, "SCI", "🐾", "DOGS\u2019 GUT BUGS", "copy their owners"),
     (29, "SPORT", "✋", "KEANE SNUBS A MASCOT", "no high-five given"),
     (30, "SCI", "🌠", "LEONIDS PEAK TONIGHT", "15 meteors an hour"),
-    (31, "HEALTH", "🌳", "THE TRIBE THAT SAID HELLO", "Awá emerge in Brazil"),
+    (31, "HEALTH", "🌳", "THE TRIBE SAYS HELLO", "Awá emerge in Brazil"),
     (32, "SPORT", "🐎", "CUP HORSE IN A SKIP BIN", "Sydney inquiry opens"),
     (33, "HEALTH", "🌍", "COP31 DRAFT FIGHT", "194 nations, deep splits"),
-    (34, "HERO", "🚢", "NINE PULLED FROM THE RIVER", "New Orleans rescue"),
+    (34, "HERO", "🚢", "NINE PULLED FROM THE RIVER", "in New Orleans"),
     (35, "HERO", "🚁", "19 AIRLIFTED FROM A RAFT", "tanker crew saved"),
+    (36, "SCI", "🐧", "TEEN PENGUINS VS KRILL BOATS", "tracked youngsters cross fishing zones"),
+    (37, "ODD", "🅿️", "NO PAY, NO DRIVE", "the Barnacle windscreen clamp reaches NZ"),
 ]
 
 COL_W, COL_GAP = 318, 15
@@ -515,7 +549,7 @@ for c in range(3):
 
 # ---------------- sources ----------------
 src = ("Every story was reported on Tuesday 17 November 2026. Sources include Bloomberg, Reuters, BBC, "
-       "The Guardian, Le Monde, UN News, USA TODAY, Space.com, Business Insider, Phys.org, The Sun and Parade.")
+       "CoinDesk, The Guardian, Le Monde, UN News, USA TODAY, Space.com, Business Insider, Phys.org, WHOI, Stuff, The Sun and Parade.")
 sy = 990
 for line in wrap(d, src, font(SANS_R, 11), W - 2 * M - 60):
     center(d, line, font(SANS_R, 11), sy, LGRAY)
